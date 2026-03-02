@@ -6,7 +6,7 @@ export default function SiteFooter() {
       <div className="container-wide footer-inner">
         <Link href="/" className="brand-link">
           <span className="brand-dot" aria-hidden="true" />
-          <span>Reddit AI Reply</span>
+          <span>ReplyMint</span>
         </Link>
         <div className="footer-links">
           <Link href="/dashboard">Dashboard</Link>
@@ -14,7 +14,7 @@ export default function SiteFooter() {
           <Link href="/privacy">Privacy</Link>
           <Link href="/terms">Terms</Link>
         </div>
-        <p className="footer-copy">© 2026 Reddit AI Reply. All rights reserved.</p>
+        <p className="footer-copy">© 2026 ReplyMint. All rights reserved.</p>
       </div>
     </footer>
   );

@@ -15,49 +15,55 @@ export default function PrivacyPage() {
 
       <main className="legal">
         <h1>Privacy Policy</h1>
-        <p className="updated">Last updated: February 25, 2026</p>
+        <p className="updated">Last updated: March 2, 2026</p>
 
         <h2>Overview</h2>
         <p>
-          Reddit AI Reply ("the Extension") is a browser extension that generates AI-powered reply suggestions for
+          ReplyMint ("the Extension") is a browser extension that generates AI-powered reply suggestions for
           Reddit. We are committed to protecting your privacy and being transparent about our data practices.
         </p>
 
         <h2>Data We Collect</h2>
-        <p>The Extension collects and processes the following data locally on your device:</p>
+        <p>ReplyMint collects and processes the following data:</p>
         <ul>
           <li>
             <strong>Reddit post and comment text</strong>: Temporarily read from the current page to generate AI
-            replies. This text is sent to the AI provider (OpenAI or Anthropic) you have configured and is not stored
-            by us.
+            replies. In Cloud Mode, this content is processed by ReplyMint backend and the configured model provider.
           </li>
           <li>
-            <strong>Extension settings</strong>: Your chosen AI provider, model, language preference, and persona/bio
-            are stored locally using Chrome&apos;s <code>chrome.storage.sync</code> API.
+            <strong>Extension settings</strong>: Your selected mode, language, and persona are stored in
+            <code> chrome.storage.sync </code>.
           </li>
           <li>
-            <strong>API key</strong>: Your AI provider API key is stored locally in <code>chrome.storage.sync</code>
-            and is only sent directly to the AI provider&apos;s API endpoint.
+            <strong>Account and subscription data</strong>: If you sign in, we store your account and subscription
+            status in Supabase to enforce plan access.
           </li>
         </ul>
 
-        <h2>Data We Do NOT Collect</h2>
+        <h2>Data We Do Not Collect</h2>
         <ul>
-          <li>We do not collect personal information (name, email, etc.)</li>
-          <li>We do not track your browsing history</li>
-          <li>We do not use analytics or tracking scripts</li>
+          <li>We do not sell personal data.</li>
+          <li>We do not use Reddit content for model training.</li>
+          <li>We do not collect unrelated browsing history.</li>
           <li>We do not sell or share any data with third parties</li>
-          <li>We do not store any data on our servers — the Extension has no backend server</li>
         </ul>
 
         <h2>Third-Party Services</h2>
-        <p>The Extension sends Reddit post/comment content to the AI provider you configure:</p>
+        <p>Reply generation may involve these providers:</p>
         <ul>
           <li>
-            <strong>OpenAI</strong> (api.openai.com) — <a href="https://openai.com/policies/privacy-policy">Privacy Policy</a>
+            <strong>OpenAI</strong> (api.openai.com) —{" "}
+            <a href="https://openai.com/policies/privacy-policy">Privacy Policy</a>
           </li>
           <li>
-            <strong>Anthropic</strong> (api.anthropic.com) — <a href="https://www.anthropic.com/privacy">Privacy Policy</a>
+            <strong>Anthropic</strong> (api.anthropic.com) —{" "}
+            <a href="https://www.anthropic.com/privacy">Privacy Policy</a>
+          </li>
+          <li>
+            <strong>Supabase</strong> (supabase.com) for authentication and account data
+          </li>
+          <li>
+            <strong>PostHog</strong> (posthog.com) for product analytics
           </li>
         </ul>
 
@@ -69,8 +75,8 @@ export default function PrivacyPage() {
 
         <h2>Data Storage</h2>
         <p>
-          All data is stored locally on your device using Chrome&apos;s built-in storage API (<code>chrome.storage.sync</code>
-          ).
+          Extension preferences are stored in <code>chrome.storage.sync</code>. Account and subscription records are
+          stored in Supabase.
         </p>
 
         <h2>Permissions</h2>

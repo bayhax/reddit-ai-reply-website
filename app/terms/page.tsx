@@ -15,16 +15,16 @@ export default function TermsPage() {
 
       <main className="legal">
         <h1>Terms of Service</h1>
-        <p className="updated">Last updated: February 25, 2026</p>
+        <p className="updated">Last updated: March 2, 2026</p>
 
         <h2>1. Acceptance of Terms</h2>
         <p>
-          By installing or using Reddit AI Reply ("the Extension"), you agree to be bound by these Terms of Service.
+          By installing or using ReplyMint ("the Extension"), you agree to be bound by these Terms of Service.
         </p>
 
         <h2>2. Description of Service</h2>
         <p>
-          Reddit AI Reply is a browser extension that generates AI-powered reply suggestions for Reddit posts and
+          ReplyMint is a browser extension that generates AI-powered reply suggestions for Reddit posts and
           comments.
         </p>
 
@@ -32,15 +32,15 @@ export default function TermsPage() {
         <ul>
           <li>You are responsible for all content posted using the Extension&apos;s suggestions.</li>
           <li>You must comply with Reddit&apos;s Terms of Service and Content Policy.</li>
-          <li>You are responsible for maintaining the security of your API keys.</li>
+          <li>You are responsible for maintaining the security of your account and extension keys.</li>
           <li>You must not use the Extension for spam, harassment, or policy-violating activity.</li>
           <li>You acknowledge that AI-generated content may contain errors or inaccuracies.</li>
         </ul>
 
         <h2>4. API Keys and Third-Party Services</h2>
         <p>
-          The free tier requires your own API key from OpenAI or Anthropic. Your use of those APIs is governed by
-          their own terms.
+          Free tier users may use their own model API keys. Paid users may use ReplyMint Cloud Mode. Third-party model
+          providers are governed by their own terms.
         </p>
 
         <h2>5. Paid Plans</h2>
@@ -52,7 +52,7 @@ export default function TermsPage() {
         </ul>
 
         <h2>6. Intellectual Property</h2>
-        <p>The Extension and its original features are owned by Reddit AI Reply.</p>
+        <p>The Extension and its original features are owned by ReplyMint.</p>
 
         <h2>7. Disclaimer of Warranties</h2>
         <p>
@@ -62,13 +62,14 @@ export default function TermsPage() {
 
         <h2>8. Limitation of Liability</h2>
         <p>
-          In no event shall Reddit AI Reply be liable for indirect, incidental, special, consequential, or punitive
+          In no event shall ReplyMint be liable for indirect, incidental, special, consequential, or punitive
           damages from use of the Extension.
         </p>
 
         <h2>9. Usage Limits</h2>
         <ul>
           <li>Free users are limited to 5 AI reply generations per day.</li>
+          <li>Cloud Mode is available only to users with an active paid subscription.</li>
           <li>We reserve the right to modify usage limits with reasonable notice.</li>
           <li>Abuse may result in suspension.</li>
         </ul>

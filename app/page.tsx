@@ -1,8 +1,12 @@
-import Link from "next/link";
 import SiteFooter from "@/components/site-footer";
 import SiteHeader from "@/components/site-header";
+import PricingCta from "@/components/pricing-cta";
+import TrackedLink from "@/components/tracked-link";
 
 export default function HomePage() {
+  const pricingExperiment = process.env.NEXT_PUBLIC_PRICING_EXPERIMENT || "control";
+  const isConversionPush = pricingExperiment === "conversion_push";
+
   return (
     <>
       <SiteHeader
@@ -17,15 +21,27 @@ export default function HomePage() {
         <section className="home-hero container-wide">
           <div className="hero-copy">
             <p className="eyebrow">Built for solo creators, brands, and marketing teams</p>
-            <h1>Reply faster on Reddit with AI.</h1>
-            <p className="subtitle">Find threads, draft better answers, and publish with review controls.</p>
+            <h1>Write better Reddit replies with ReplyMint.</h1>
+            <p className="subtitle">
+              {isConversionPush
+                ? "Connect your account, generate high-signal replies, and measure outcomes in one workflow."
+                : "Find threads, draft better answers, and publish with review controls."}
+            </p>
             <div className="hero-actions">
-              <Link className="btn btn-primary" href="/login">
-                Try Free 14 Days
-              </Link>
-              <Link className="btn btn-outline" href="/dashboard">
+              <PricingCta
+                className="btn btn-primary"
+                label={isConversionPush ? "Start 14-Day Pro Trial" : "Try Free 14 Days"}
+                source="hero_primary"
+                tier="pro"
+              />
+              <TrackedLink
+                className="btn btn-outline"
+                href="/dashboard"
+                eventName="web_click_cta_view_dashboard"
+                eventProps={{ source: "hero_secondary" }}
+              >
                 See Dashboard
-              </Link>
+              </TrackedLink>
             </div>
           </div>
           <aside className="hero-card">
@@ -80,13 +96,54 @@ export default function HomePage() {
           <p className="subtitle">
             Create workspace, connect prompts, invite teammates, and ship your first campaign this afternoon.
           </p>
+          <div className="pricing-grid">
+            <article className="pricing-card">
+              <h3>Starter</h3>
+              <p className="pricing-price">$9<span>/month</span></p>
+              <p className="pricing-desc">For solo builders validating one product narrative.</p>
+              <PricingCta
+                className="btn btn-primary"
+                label={isConversionPush ? "Start Starter" : "Choose Starter"}
+                source="pricing_starter"
+                tier="starter"
+              />
+            </article>
+            <article className="pricing-card pricing-card-featured">
+              <h3>Pro</h3>
+              <p className="pricing-price">$19<span>/month</span></p>
+              <p className="pricing-desc">
+                {isConversionPush
+                  ? "Best value for creators and operators running weekly Reddit outreach."
+                  : "For creators and operators running continuous Reddit outreach."}
+              </p>
+              <PricingCta
+                className="btn btn-primary"
+                label={isConversionPush ? "Start Pro Trial" : "Choose Pro"}
+                source="pricing_pro"
+                tier="pro"
+              />
+            </article>
+            <article className="pricing-card">
+              <h3>Team</h3>
+              <p className="pricing-price">$49<span>/month</span></p>
+              <p className="pricing-desc">For teams needing shared workflows and higher monthly volume.</p>
+              <PricingCta
+                className="btn btn-primary"
+                label={isConversionPush ? "Start Team Plan" : "Choose Team"}
+                source="pricing_team"
+                tier="team"
+              />
+            </article>
+          </div>
           <div className="hero-actions">
-            <Link className="btn btn-primary" href="/login">
-              Start Free
-            </Link>
-            <Link className="btn btn-outline" href="mailto:support@example.com">
+            <TrackedLink
+              className="btn btn-outline"
+              href="mailto:support@example.com"
+              eventName="web_click_cta_book_demo"
+              eventProps={{ source: "pricing_secondary" }}
+            >
               Book Demo
-            </Link>
+            </TrackedLink>
           </div>
         </section>
       </main>

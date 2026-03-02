@@ -1,7 +1,7 @@
 "use client";
 
-import Link from "next/link";
 import { useState } from "react";
+import TrackedLink from "@/components/tracked-link";
 
 type NavItem = {
   href: string;
@@ -19,10 +19,15 @@ export default function SiteHeader({ navItems, showActions = true }: SiteHeaderP
   return (
     <header className="site-nav">
       <div className="site-nav-inner container-wide">
-        <Link href="/" className="brand-link">
+        <TrackedLink
+          href="/"
+          className="brand-link"
+          eventName="web_click_brand_home"
+          eventProps={{ source: "header" }}
+        >
           <span className="brand-dot" aria-hidden="true" />
-          <span>Reddit AI Reply</span>
-        </Link>
+          <span>ReplyMint</span>
+        </TrackedLink>
 
         <button
           className="nav-toggle"
@@ -36,20 +41,36 @@ export default function SiteHeader({ navItems, showActions = true }: SiteHeaderP
 
         <nav className={`site-nav-links ${open ? "open" : ""}`}>
           {navItems.map((item) => (
-            <Link key={item.href + item.label} href={item.href} onClick={() => setOpen(false)}>
+            <TrackedLink
+              key={item.href + item.label}
+              href={item.href}
+              eventName="web_click_nav_item"
+              eventProps={{ source: "header", label: item.label, href: item.href }}
+              onClick={() => setOpen(false)}
+            >
               {item.label}
-            </Link>
+            </TrackedLink>
           ))}
         </nav>
 
         {showActions ? (
           <div className="site-nav-actions">
-            <Link className="btn btn-sm btn-ghost" href="/login">
+            <TrackedLink
+              className="btn btn-sm btn-ghost"
+              href="/login"
+              eventName="web_click_login"
+              eventProps={{ source: "header" }}
+            >
               Log in
-            </Link>
-            <Link className="btn btn-sm btn-primary" href="/login">
+            </TrackedLink>
+            <TrackedLink
+              className="btn btn-sm btn-primary"
+              href="/login"
+              eventName="web_click_cta_try_free"
+              eventProps={{ source: "header" }}
+            >
               Start Free
-            </Link>
+            </TrackedLink>
           </div>
         ) : null}
       </div>

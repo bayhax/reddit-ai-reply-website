@@ -1,0 +1,74 @@
+name: website-ci
+
+on:
+  push:
+    branches: ["main", "preview"]
+  pull_request:
+    branches: ["main"]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+      - name: Install
+        run: npm ci
+      - name: Typecheck
+        run: npm run typecheck
+      - name: Build
+        run: npm run build
+
+  smoke-prod:
+    runs-on: ubuntu-latest
+    needs: build
+    if: github.event_name != 'pull_request'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+      - name: Install
+        run: npm ci
+      - name: Run unauth/prod smoke
+        env:
+          REPLYMINT_BASE_URL: ${{ vars.REPLYMINT_BASE_URL }}
+          REPLYMINT_TEST_EXTENSION_KEY: ${{ secrets.REPLYMINT_TEST_EXTENSION_KEY }}
+        run: |
+          if [ -z "$REPLYMINT_BASE_URL" ]; then
+            export REPLYMINT_BASE_URL="https://reddit-ai-reply-website.vercel.app"
+          fi
+          npm run smoke:prod
+
+  smoke-auth-prod:
+    runs-on: ubuntu-latest
+    needs: build
+    if: github.event_name != 'pull_request'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+      - name: Install
+        run: npm ci
+      - name: Run authenticated smoke
+        env:
+          REPLYMINT_BASE_URL: ${{ vars.REPLYMINT_BASE_URL }}
+          NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
+          NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+        run: |
+          if [ -z "$NEXT_PUBLIC_SUPABASE_URL" ] || [ -z "$NEXT_PUBLIC_SUPABASE_ANON_KEY" ] || [ -z "$SUPABASE_SERVICE_ROLE_KEY" ]; then
+            echo "Skipping auth smoke: required Supabase secrets are missing."
+            exit 0
+          fi
+          if [ -z "$REPLYMINT_BASE_URL" ]; then
+            export REPLYMINT_BASE_URL="https://reddit-ai-reply-website.vercel.app"
+          fi
+          npm run smoke:auth:prod
